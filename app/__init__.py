@@ -3,7 +3,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 from flask import Flask
-from app.extensions import db, auth
+from app.extensions import db, auth, limiter
 from app.models.user import User
 from app.routes.auth import auth_bp
 from app.routes.files import files_bp
@@ -23,6 +23,7 @@ def create_app() -> Flask:
     app.config.from_object('app.config.Config')
 
     db.init_app(app)
+    limiter.init_app(app)
 
     app.register_blueprint(files_bp, url_prefix='/files')
     app.register_blueprint(auth_bp, url_prefix='/auth')

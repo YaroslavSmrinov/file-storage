@@ -25,3 +25,4 @@ class Config:
     STORAGE_PATH: str = str(Path(__file__).parent.parent / 'store')
 
     BASIC_AUTH_FORCE: bool = True  # Надо требовать аутентификацию для протектед ручек
+    REQUESTS_PER_MINUTE: str = "10 per minute"

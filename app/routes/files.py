@@ -1,6 +1,7 @@
 from flask import Blueprint, request, send_file, current_app
 from app.exceptions.custom_exceptions import FileNotFoundInStorageError
-from app.extensions import auth
+from app.extensions import auth, limiter
+
 from app.services.file_service import FileService
 
 
@@ -11,6 +12,7 @@ Blueprint для работы с загрузкой, удалением и ск�
 
 @files_bp.route('/upload', methods=['POST'])
 @auth.login_required
+@limiter.limit(lambda: current_app.config['REQUESTS_PER_MINUTE'])
 def upload():
     """
     Эндпоинт для загрузки файла.
@@ -38,6 +40,7 @@ def upload():
 
 @files_bp.route('/<string:file_hash>', methods=['DELETE'])
 @auth.login_required
+@limiter.limit(lambda: current_app.config['REQUESTS_PER_MINUTE'])
 def delete(file_hash):
     """
     Эндпоинт для удаления файла по его хэшу.
