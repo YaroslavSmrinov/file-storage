@@ -32,7 +32,7 @@ MANIFEST
 *.manifest
 *.spec
 store/
-data/*
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
@@ -61,7 +61,7 @@ cover/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-
+*.db
 # Flask stuff:
 instance/
 .webassets-cache

@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import List, Dict
 import logging
 from logging.handlers import RotatingFileHandler
@@ -21,6 +22,8 @@ def create_app() -> Flask:
     """
     app = Flask(__name__)
     app.config.from_object('app.config.Config')
+    data_dir = Path(__file__).parent.parent / 'data'
+    data_dir.mkdir(parents=True, exist_ok=True)
 
     db.init_app(app)
     limiter.init_app(app)
